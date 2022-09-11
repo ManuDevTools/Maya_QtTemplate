@@ -32,18 +32,6 @@
 
   <h3 align="center">Maya QT Template</h3>
 
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
 </div>
 
 <!-- ABOUT THE PROJECT -->
@@ -51,8 +39,6 @@
 
 This is simply a template to start creating a Qt form in Maya. 
 As it is a very Straight Forward task, and very recurring, I can always have it here at hand for whatever I need.
-
-Use the `BLANK_README.md` to get started.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
