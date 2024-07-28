@@ -1,65 +1,76 @@
-import sys
+''' User interface for connect some attribute with the selected Arduino pinout
+    IMPORTANT: For older versions of Maya 2025, you may want to change the version
+    from PySide to Pyside2
+'''
 
-from PySide2 import QtCore
-from PySide2 import QtWidgets
-from shiboken2 import wrapInstance
+from PySide6 import QtCore
+from PySide6 import QtWidgets
+from shiboken6 import wrapInstance
 
-import maya.OpenMaya as om
 import maya.OpenMayaUI as omui
-import maya.cmds as cmds
 
 
-def maya_main_window():
+def mayaMainWindow():
     """
     Return the Maya main window widget as a Python object
     """
-    main_window_ptr = omui.MQtUtil.mainWindow()
-    if sys.version_info.major >= 3:
-        return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
-    else:
-        return wrapInstance(long(main_window_ptr), QtWidgets.QWidget)
+    mainWindowPtr = omui.MQtUtil.mainWindow()
+
+    return wrapInstance(int(mainWindowPtr), QtWidgets.QWidget)
 
 
-class qtFormTemplate(QtWidgets.QDialog):
 
-    def __init__(self, parent=maya_main_window()):
-        super(qtFormTemplate, self).__init__(parent)
+class QtForm(QtWidgets.QDialog):
+    '''User interface for connect some attribute with the selected Arduino pinout'''
+
+    def __init__(self, parent = mayaMainWindow()):
+        super(QtForm, self).__init__(parent)
 
         self.setWindowTitle("QT Template")
         self.setFixedWidth(220)
         self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
 
-        self.create_widgets()
-        self.create_layout()
-        self.create_connections()
-
-    def create_widgets(self):
-        '''
-        Hace cosas
-        '''
-        self.close_btn = QtWidgets.QPushButton("Close")
-
-    def create_layout(self):
-
-        button_layout = QtWidgets.QHBoxLayout()
-        button_layout.addStretch()
-        button_layout.addWidget(self.close_btn)
-
-        main_layout = QtWidgets.QVBoxLayout(self)
-        main_layout.addStretch()
-        main_layout.addLayout(button_layout)
-
-    def create_connections(self):
-        self.close_btn.clicked.connect(self.close)
+        self.createWidgets()
+        self.createLayout()
+        self.createConnections()
 
 
-if __name__ == "__main__":
+    def createWidgets(self):
+        '''Widgets setup'''
 
-    try:
-        qtTemplateDialog.close() # pylint: disable=E0601
-        qtTemplateDialog.deleteLater()
-    except:
-        pass
+        self.closeBtn = QtWidgets.QPushButton("Close")
 
-    qtTemplateDialog = qtFormTemplate()
-    qtTemplateDialog.show()
+
+    def createLayout(self):
+        '''Layout setup'''
+
+        buttonLayout = QtWidgets.QHBoxLayout()
+        buttonLayout.addStretch()
+        buttonLayout.addWidget(self.closeBtn)
+
+        mainLayout = QtWidgets.QVBoxLayout(self)
+        mainLayout.addStretch()
+        mainLayout.addLayout(buttonLayout)
+
+
+    def createConnections(self):
+        '''Connections setup'''
+
+        self.closeBtn.clicked.connect(self.close)
+
+
+    @classmethod
+    def showUI(cls):
+        '''Shows the UI'''
+
+        try:
+            qtTemplateDialog.close() # pylint: disable=E0601
+            qtTemplateDialog.deleteLater()
+
+        except NameError:
+            pass
+
+        qtTemplateDialog = QtForm()
+        qtTemplateDialog.show()
+
+QtForm.showUI()
